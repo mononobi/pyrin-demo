@@ -3,7 +3,7 @@
 province package.
 """
 
-from pyrin.packaging.context import Package
+from pyrin.packaging.base import Package
 
 
 class ProvincePackage(Package):
