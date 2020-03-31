@@ -8,7 +8,7 @@ import pyrin.security.token.services as toke_services
 import pyrin.globalization.datetime.services as datetime_services
 
 from pyrin.core.globals import _
-from pyrin.core.context import DTO
+from pyrin.core.structs import DTO
 from pyrin.database.services import get_current_store
 from pyrin.security.authorization.exceptions import UserIsNotActiveError
 from pyrin.security.manager import SecurityManager as BaseSecurityManager

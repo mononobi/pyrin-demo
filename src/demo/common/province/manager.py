@@ -3,7 +3,7 @@
 province manager module.
 """
 
-from pyrin.core.context import Manager
+from pyrin.core.structs import Manager
 from pyrin.database.services import get_current_store
 from pyrin.core.globals import _
 

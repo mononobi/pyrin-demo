@@ -3,7 +3,7 @@
 permission component module.
 """
 
-from pyrin.application.context import Component
+from pyrin.application.structs import Component
 from pyrin.application.decorators import component
 
 from demo.security.permission import PermissionPackage

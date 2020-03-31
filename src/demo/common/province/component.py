@@ -4,7 +4,7 @@ province component module.
 """
 
 from pyrin.application.decorators import component
-from pyrin.application.context import Component
+from pyrin.application.structs import Component
 
 from demo.common.province import ProvincePackage
 from demo.common.province.manager import ProvinceManager

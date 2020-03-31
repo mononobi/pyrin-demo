@@ -4,7 +4,7 @@ city component module.
 """
 
 from pyrin.application.decorators import component
-from pyrin.application.context import Component
+from pyrin.application.structs import Component
 
 from demo.common.city import CityPackage
 from demo.common.city.manager import CityManager
