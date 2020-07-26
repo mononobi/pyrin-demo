@@ -22,17 +22,17 @@ Demo application will expose these services:
 
 - Public
 
-    - `('/security/users/create', methods=HTTPMethodEnum.POST, login_required=False)`
-    - `('/security/login', methods=HTTPMethodEnum.POST, login_required=False)`
-    - `('/common/city/create', methods=HTTPMethodEnum.POST, login_required=False)`
-    - `('/common/city/get/<int:city_id>', methods=HTTPMethodEnum.GET, login_required=False)`
-    - `('/common/city/find', methods=HTTPMethodEnum.GET, login_required=False)`
-    - `('/common/province/create', methods=HTTPMethodEnum.POST, login_required=False)`
-    - `('/common/province/get/<int:province_id>', methods=HTTPMethodEnum.GET, login_required=False)`
-    - `('/common/province/find', methods=HTTPMethodEnum.GET, login_required=False)`
-    - `('/common/province/get_all', methods=HTTPMethodEnum.GET, login_required=False)`
+    - `('/auth/login', methods=HTTPMethodEnum.POST, authenticated=False)`
+    - `('/users', methods=HTTPMethodEnum.POST, authenticated=False)`
+    - `('/users', methods=HTTPMethodEnum.GET, authenticated=False)`
+    - `('/cities/<int:city_id>', methods=HTTPMethodEnum.GET, authenticated=False)`
+    - `('/cities', methods=HTTPMethodEnum.POST, authenticated=False)`
+    - `('/cities/find', methods=HTTPMethodEnum.GET, authenticated=False)`
+    - `('/provinces/<int:province_id>', methods=HTTPMethodEnum.GET, authenticated=False)`
+    - `('/provinces', methods=HTTPMethodEnum.GET, authenticated=False)`
+    - `('/provinces', methods=HTTPMethodEnum.POST, authenticated=False)`
+    - `('/provinces/find', methods=HTTPMethodEnum.GET, authenticated=False)`
 
 - Protected (Requires Login and Authorization Header with Access Token)
 
-    - `('/security/users/get', methods=HTTPMethodEnum.GET)`
-    - `('/security/users/get_all', methods=HTTPMethodEnum.GET, permissions=VIEW_USERS_LIST_PERMISSION)`
+    - `('/users/info', methods=HTTPMethodEnum.GET, permissions=VIEW_USERS_LIST_PERMISSION)`
