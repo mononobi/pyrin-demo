@@ -9,7 +9,7 @@ from pyrin.core.enumerations import HTTPMethodEnum
 import demo.common.city.services as city_services
 
 
-@api('/common/city/get/<int:city_id>', methods=HTTPMethodEnum.GET, login_required=False)
+@api('/cities/<int:city_id>', methods=HTTPMethodEnum.GET, authenticated=False)
 def get(city_id, **options):
     """
     gets the specified city.
@@ -28,7 +28,7 @@ def get(city_id, **options):
     return city_services.get(city_id, **options)
 
 
-@api('/common/city/find', methods=HTTPMethodEnum.GET, login_required=False)
+@api('/cities/find', methods=HTTPMethodEnum.GET, authenticated=False)
 def find(**filters):
     """
     finds cities with given filters.
@@ -46,7 +46,7 @@ def find(**filters):
     return city_services.find(**filters)
 
 
-@api('/common/city/create', methods=HTTPMethodEnum.POST, login_required=False)
+@api('/cities', methods=HTTPMethodEnum.POST, authenticated=False)
 def create(name, province_id, **options):
     """
     creates a city.

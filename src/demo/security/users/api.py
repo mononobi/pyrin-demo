@@ -11,7 +11,7 @@ import demo.security.users.services as user_services
 from demo.security.users.permissions import VIEW_USERS_LIST_PERMISSION
 
 
-@api('/security/users/create', methods=HTTPMethodEnum.POST, login_required=False)
+@api('/users', methods=HTTPMethodEnum.POST, authenticated=False)
 def create(username, password, first_name, last_name, **options):
     """
     creates a new user based on given inputs.
@@ -25,8 +25,8 @@ def create(username, password, first_name, last_name, **options):
     user_services.create(username, password, first_name, last_name, **options)
 
 
-@api('/security/users/get', methods=HTTPMethodEnum.GET)
-def get(**options):
+@api('/users/info', methods=HTTPMethodEnum.GET, permissions=VIEW_USERS_LIST_PERMISSION)
+def get_info(**options):
     """
     gets the current user info.
 
@@ -44,8 +44,7 @@ def get(**options):
     return user_services.get(**options)
 
 
-@api('/security/users/get_all', methods=HTTPMethodEnum.GET,
-     permissions=VIEW_USERS_LIST_PERMISSION)
+@api('/users', methods=HTTPMethodEnum.GET, authenticated=False)
 def get_all(**options):
     """
     gets a list of all users.

@@ -9,7 +9,7 @@ from pyrin.core.enumerations import HTTPMethodEnum
 import demo.common.province.services as province_services
 
 
-@api('/common/province/get/<int:province_id>', methods=HTTPMethodEnum.GET, login_required=False)
+@api('/provinces/<int:province_id>', methods=HTTPMethodEnum.GET, authenticated=False)
 def get(province_id, **options):
     """
     gets the specified province.
@@ -27,7 +27,7 @@ def get(province_id, **options):
     return province_services.get(province_id, **options)
 
 
-@api('/common/province/find', methods=HTTPMethodEnum.GET, login_required=False)
+@api('/provinces/find', methods=HTTPMethodEnum.GET, authenticated=False)
 def find(**filters):
     """
     finds provinces with given filters.
@@ -43,7 +43,7 @@ def find(**filters):
     return province_services.find(**filters)
 
 
-@api('/common/province/get_all', methods=HTTPMethodEnum.GET, login_required=False)
+@api('/provinces', methods=HTTPMethodEnum.GET, authenticated=False)
 def get_all(**options):
     """
     gets all provinces.
@@ -57,7 +57,7 @@ def get_all(**options):
     return province_services.get_all(**options)
 
 
-@api('/common/province/create', methods=HTTPMethodEnum.POST, login_required=False)
+@api('/provinces', methods=HTTPMethodEnum.POST, authenticated=False)
 def create(name, **options):
     """
     creates a province.

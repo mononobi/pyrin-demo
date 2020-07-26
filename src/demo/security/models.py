@@ -3,9 +3,9 @@
 security models module.
 """
 
-from pyrin.core.structs import DTO
 from sqlalchemy import Unicode, DateTime, Integer, Boolean
 
+from pyrin.core.structs import DTO
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
 

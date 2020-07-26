@@ -9,7 +9,7 @@ from pyrin.core.enumerations import HTTPMethodEnum
 import demo.security.services as security_services
 
 
-@api('/security/login', methods=HTTPMethodEnum.POST, login_required=False)
+@api('/auth/login', methods=HTTPMethodEnum.POST, authenticated=False)
 def login(username, password, **options):
     """
     logs in the provided user and gets a valid token.
