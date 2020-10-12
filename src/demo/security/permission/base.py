@@ -3,6 +3,7 @@
 permission base module.
 """
 
+from pyrin.core.globals import SECURE_TRUE
 from pyrin.security.permission.base import PermissionBase
 
 from demo.security.permission.models import PermissionEntity
@@ -11,6 +12,7 @@ from demo.security.permission.models import PermissionEntity
 class CorePermission(PermissionBase):
     """
     core permission class.
+
     all application permissions must be an instance of this.
     """
 
@@ -52,7 +54,9 @@ class CorePermission(PermissionBase):
         :rtype: PermissionEntity
         """
 
-        entity = PermissionEntity(id=self.id, description=self.description)
+        entity = PermissionEntity(id=self.id,
+                                  description=self.description,
+                                  populate_all=SECURE_TRUE)
         return entity
 
     def get_id(self):

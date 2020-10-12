@@ -5,6 +5,7 @@ main entry point for demo application.
 
 from demo import DemoApplication
 
+
 app = DemoApplication()
 
 # the if condition is to ensure that multiprocessing
