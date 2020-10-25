@@ -24,7 +24,5 @@ class PermissionManager(BasePermissionManager):
         """
 
         store = get_current_store()
-        permission_count = store.query(PermissionEntity.id).filter(PermissionEntity.id ==
-                                                                   permission_id).count()
-
-        return permission_count > 0
+        return store.query(PermissionEntity.id).filter(PermissionEntity.id ==
+                                                       permission_id).existed()
