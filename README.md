@@ -8,7 +8,7 @@ You could run the application by executing the following command:
 
 **`python3 start.py`**
 
-Application will be available at **`127.0.0.1:9081`** by default.
+Application will be available at **`127.0.0.1:5000`** by default.
 
 # Configurations
 
