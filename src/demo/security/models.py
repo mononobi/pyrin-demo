@@ -18,7 +18,7 @@ class UserBaseEntity(CoreEntity):
     __tablename__ = 'user'
 
     id = CoreColumn(name='id', type_=Integer, autoincrement=True,
-                    primary_key=True, index=True)
+                    primary_key=True, index=True, allow_write=False)
 
 
 class UserEntity(UserBaseEntity):
@@ -30,7 +30,7 @@ class UserEntity(UserBaseEntity):
 
     username = CoreColumn(name='username', type_=Unicode(50), nullable=False, unique=True)
     password_hash = CoreColumn(name='password_hash', type_=Unicode(250),
-                               nullable=False, exposed=False)
+                               nullable=False, allow_read=False, allow_write=False)
     last_login_date = CoreColumn(name='last_login_date', type_=DateTime(timezone=True))
     first_name = CoreColumn(name='first_name', type_=Unicode(50), nullable=False)
     last_name = CoreColumn(name='last_name', type_=Unicode(50), nullable=False)
