@@ -5,7 +5,6 @@ security models module.
 
 from sqlalchemy import Unicode, DateTime, Integer, Boolean
 
-from pyrin.core.structs import DTO
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
 from pyrin.database.orm.sql.schema.columns import PKColumn
@@ -16,7 +15,7 @@ class UserBaseEntity(CoreEntity):
     user base entity class.
     """
 
-    __tablename__ = 'user'
+    _table = 'user'
 
     id = PKColumn(name='id', type_=Integer, autoincrement=True)
 
@@ -26,7 +25,7 @@ class UserEntity(UserBaseEntity):
     user entity class.
     """
 
-    __table_args__ = DTO(extend_existing=True)
+    _extend_existing = True
 
     username = CoreColumn(name='username', type_=Unicode(50), nullable=False, unique=True)
     password_hash = CoreColumn(name='password_hash', type_=Unicode(250),

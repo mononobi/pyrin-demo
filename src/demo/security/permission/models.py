@@ -5,9 +5,9 @@ permission models module.
 
 from sqlalchemy import Unicode, SmallInteger
 
-from pyrin.core.structs import DTO
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
+from pyrin.database.orm.sql.schema.columns import PKColumn
 
 
 class PermissionBaseEntity(CoreEntity):
@@ -15,9 +15,9 @@ class PermissionBaseEntity(CoreEntity):
     permission base entity class.
     """
 
-    __tablename__ = 'permission'
+    _table = 'permission'
 
-    id = CoreColumn(name='id', type_=SmallInteger, primary_key=True, nullable=False, index=True)
+    id = PKColumn(name='id', type_=SmallInteger, autoincrement=False)
 
 
 class PermissionEntity(PermissionBaseEntity):
@@ -25,6 +25,6 @@ class PermissionEntity(PermissionBaseEntity):
     permission entity class.
     """
 
-    __table_args__ = DTO(extend_existing=True)
+    _extend_existing = True
 
     description = CoreColumn(name='description', type_=Unicode(100), nullable=False)
