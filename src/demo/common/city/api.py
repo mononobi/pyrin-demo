@@ -28,7 +28,7 @@ def get(city_id, **options):
     return city_services.get(city_id, **options)
 
 
-@api('/cities/find', methods=HTTPMethodEnum.GET, authenticated=False)
+@api('/cities', methods=HTTPMethodEnum.GET, authenticated=False)
 def find(**filters):
     """
     finds cities with given filters.

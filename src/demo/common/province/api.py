@@ -27,7 +27,7 @@ def get(province_id, **options):
     return province_services.get(province_id, **options)
 
 
-@api('/provinces/find', methods=HTTPMethodEnum.GET, authenticated=False)
+@api('/provinces', methods=HTTPMethodEnum.GET, authenticated=False)
 def find(**filters):
     """
     finds provinces with given filters.
@@ -43,7 +43,7 @@ def find(**filters):
     return province_services.find(**filters)
 
 
-@api('/provinces', methods=HTTPMethodEnum.GET, authenticated=False)
+@api('/provinces/all', methods=HTTPMethodEnum.GET, authenticated=False)
 def get_all(**options):
     """
     gets all provinces.
