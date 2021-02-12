@@ -58,7 +58,7 @@ class SecurityManager(BaseSecurityManager):
         user = store.query(UserEntity).filter(UserEntity.username == username).one_or_none()
 
         fail_message = _('User not found, make sure that '
-                         'username and password is correct.')
+                         'username and password are correct.')
         if user is None:
             raise UserNotFoundError(fail_message)
 
