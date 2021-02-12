@@ -8,6 +8,7 @@ from sqlalchemy import Unicode, Integer, ForeignKey
 from pyrin.core.structs import DTO
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
+from pyrin.database.orm.sql.schema.columns import PKColumn
 
 
 class CityBaseEntity(CoreEntity):
@@ -17,7 +18,7 @@ class CityBaseEntity(CoreEntity):
 
     __tablename__ = 'city'
 
-    id = CoreColumn(name='id', autoincrement=True, type_=Integer, primary_key=True)
+    id = PKColumn(name='id', type_=Integer, autoincrement=True)
 
 
 class CityEntity(CityBaseEntity):
@@ -28,6 +29,4 @@ class CityEntity(CityBaseEntity):
     __table_args__ = DTO(extend_existing=True)
 
     name = CoreColumn(name='name', type_=Unicode)
-
-    province_id = CoreColumn(ForeignKey('province.id'),
-                             name='province_id', type_=Integer)
+    province_id = CoreColumn(ForeignKey('province.id'), name='province_id', type_=Integer)

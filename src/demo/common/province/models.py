@@ -8,6 +8,7 @@ from sqlalchemy import Unicode, Integer
 from pyrin.core.structs import DTO
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
+from pyrin.database.orm.sql.schema.columns import PKColumn
 
 
 class ProvinceBaseEntity(CoreEntity):
@@ -17,7 +18,7 @@ class ProvinceBaseEntity(CoreEntity):
 
     __tablename__ = 'province'
 
-    id = CoreColumn(name='id', autoincrement=True, type_=Integer, primary_key=True)
+    id = PKColumn(name='id', type_=Integer, autoincrement=True)
 
 
 class ProvinceEntity(ProvinceBaseEntity):

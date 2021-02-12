@@ -8,6 +8,7 @@ from sqlalchemy import Unicode, DateTime, Integer, Boolean
 from pyrin.core.structs import DTO
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
+from pyrin.database.orm.sql.schema.columns import PKColumn
 
 
 class UserBaseEntity(CoreEntity):
@@ -17,8 +18,7 @@ class UserBaseEntity(CoreEntity):
 
     __tablename__ = 'user'
 
-    id = CoreColumn(name='id', type_=Integer, autoincrement=True,
-                    primary_key=True, index=True, allow_write=False)
+    id = PKColumn(name='id', type_=Integer, autoincrement=True)
 
 
 class UserEntity(UserBaseEntity):
