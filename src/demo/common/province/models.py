@@ -27,4 +27,4 @@ class ProvinceEntity(ProvinceBaseEntity):
 
     _extend_existing = True
 
-    name = CoreColumn(name='name', type_=Unicode, unique=True)
+    name = CoreColumn(name='name', type_=Unicode(200), unique=True)

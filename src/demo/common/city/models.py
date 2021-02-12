@@ -27,5 +27,5 @@ class CityEntity(CityBaseEntity):
 
     _extend_existing = True
 
-    name = CoreColumn(name='name', type_=Unicode)
+    name = CoreColumn(name='name', type_=Unicode(200))
     province_id = CoreColumn(ForeignKey('province.id'), name='province_id', type_=Integer)
