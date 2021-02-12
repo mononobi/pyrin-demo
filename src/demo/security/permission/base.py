@@ -42,7 +42,7 @@ class CorePermission(PermissionBase):
         return not self == other
 
     def __str__(self):
-        return '{id}-{description}'.format(id=self.get_id(), description=self.description)
+        return '{id}:{description}'.format(id=self.get_id(), description=self.description)
 
     def __repr__(self):
         return str(self)
