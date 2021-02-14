@@ -7,7 +7,7 @@ from sqlalchemy import Unicode, SmallInteger
 
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
-from pyrin.database.orm.sql.schema.columns import PKColumn
+from pyrin.database.orm.sql.schema.columns import AutoPKColumn
 
 
 class PermissionBaseEntity(CoreEntity):
@@ -17,7 +17,7 @@ class PermissionBaseEntity(CoreEntity):
 
     _table = 'permission'
 
-    id = PKColumn(name='id', type_=SmallInteger, autoincrement=False)
+    id = AutoPKColumn(type_=SmallInteger, name='id')
 
 
 class PermissionEntity(PermissionBaseEntity):

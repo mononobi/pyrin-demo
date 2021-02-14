@@ -3,11 +3,11 @@
 city models module.
 """
 
-from sqlalchemy import Unicode, Integer, ForeignKey
+from sqlalchemy import Unicode, BigInteger, ForeignKey
 
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
-from pyrin.database.orm.sql.schema.columns import PKColumn
+from pyrin.database.orm.sql.schema.columns import AutoPKColumn
 
 
 class CityBaseEntity(CoreEntity):
@@ -17,7 +17,7 @@ class CityBaseEntity(CoreEntity):
 
     _table = 'city'
 
-    id = PKColumn(name='id', type_=Integer, autoincrement=True)
+    id = AutoPKColumn(name='id')
 
 
 class CityEntity(CityBaseEntity):
@@ -28,4 +28,4 @@ class CityEntity(CityBaseEntity):
     _extend_existing = True
 
     name = CoreColumn(name='name', type_=Unicode(200))
-    province_id = CoreColumn(ForeignKey('province.id'), name='province_id', type_=Integer)
+    province_id = CoreColumn(ForeignKey('province.id'), name='province_id', type_=BigInteger)

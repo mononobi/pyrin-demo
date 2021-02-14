@@ -3,11 +3,11 @@
 security models module.
 """
 
-from sqlalchemy import Unicode, DateTime, Integer, Boolean
+from sqlalchemy import Unicode, DateTime, Boolean
 
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
-from pyrin.database.orm.sql.schema.columns import PKColumn
+from pyrin.database.orm.sql.schema.columns import AutoPKColumn
 
 
 class UserBaseEntity(CoreEntity):
@@ -17,7 +17,7 @@ class UserBaseEntity(CoreEntity):
 
     _table = 'user'
 
-    id = PKColumn(name='id', type_=Integer, autoincrement=True)
+    id = AutoPKColumn(name='id')
 
 
 class UserEntity(UserBaseEntity):

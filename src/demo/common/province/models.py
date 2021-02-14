@@ -3,11 +3,11 @@
 province models module.
 """
 
-from sqlalchemy import Unicode, Integer
+from sqlalchemy import Unicode
 
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
-from pyrin.database.orm.sql.schema.columns import PKColumn
+from pyrin.database.orm.sql.schema.columns import AutoPKColumn
 
 
 class ProvinceBaseEntity(CoreEntity):
@@ -17,7 +17,7 @@ class ProvinceBaseEntity(CoreEntity):
 
     _table = 'province'
 
-    id = PKColumn(name='id', type_=Integer, autoincrement=True)
+    id = AutoPKColumn(name='id')
 
 
 class ProvinceEntity(ProvinceBaseEntity):
