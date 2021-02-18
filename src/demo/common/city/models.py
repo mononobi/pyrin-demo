@@ -28,4 +28,4 @@ class CityEntity(CityBaseEntity):
     _extend_existing = True
 
     name = CoreColumn(name='name', type_=Unicode(200))
-    province_id = FKColumn('province.id', name='province_id', type_=BigInteger)
+    province_id = FKColumn(fk='province.id', name='province_id', type_=BigInteger)
