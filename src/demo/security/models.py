@@ -7,7 +7,7 @@ from sqlalchemy import Unicode, DateTime, Boolean
 
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
-from pyrin.database.orm.sql.schema.columns import AutoPKColumn, HiddenColumn
+from pyrin.database.orm.sql.schema.columns import AutoPKColumn, HiddenColumn, StringColumn
 
 
 class UserBaseEntity(CoreEntity):
@@ -27,9 +27,12 @@ class UserEntity(UserBaseEntity):
 
     _extend_existing = True
 
-    username = CoreColumn(name='username', type_=Unicode(50), nullable=False, unique=True)
+    username = StringColumn(name='username', max_length=50,
+                            nullable=False, unique=True, validated=True)
     password_hash = HiddenColumn(name='password_hash', type_=Unicode(250), nullable=False)
-    last_login_date = CoreColumn(name='last_login_date', type_=DateTime(timezone=True))
-    first_name = CoreColumn(name='first_name', type_=Unicode(50), nullable=False)
-    last_name = CoreColumn(name='last_name', type_=Unicode(50), nullable=False)
-    is_active = CoreColumn(name='is_active', type_=Boolean, nullable=False, default=True)
+    last_login_date = CoreColumn(name='last_login_date',
+                                 type_=DateTime(timezone=True), validated=True)
+    first_name = StringColumn(name='first_name', max_length=50, nullable=False, validated=True)
+    last_name = StringColumn(name='last_name', max_length=50, nullable=False, validated=True)
+    is_active = CoreColumn(name='is_active', type_=Boolean, nullable=False,
+                           default=True, validated=True)

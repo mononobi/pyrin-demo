@@ -3,11 +3,8 @@
 province models module.
 """
 
-from sqlalchemy import Unicode
-
 from pyrin.database.model.base import CoreEntity
-from pyrin.database.orm.sql.schema.base import CoreColumn
-from pyrin.database.orm.sql.schema.columns import AutoPKColumn
+from pyrin.database.orm.sql.schema.columns import AutoPKColumn, StringColumn
 
 
 class ProvinceBaseEntity(CoreEntity):
@@ -27,4 +24,4 @@ class ProvinceEntity(ProvinceBaseEntity):
 
     _extend_existing = True
 
-    name = CoreColumn(name='name', type_=Unicode(200), unique=True)
+    name = StringColumn(name='name', max_length=200, unique=True, validated=True)

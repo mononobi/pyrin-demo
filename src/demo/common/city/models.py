@@ -3,11 +3,10 @@
 city models module.
 """
 
-from sqlalchemy import Unicode, BigInteger
+from sqlalchemy import BigInteger
 
 from pyrin.database.model.base import CoreEntity
-from pyrin.database.orm.sql.schema.base import CoreColumn
-from pyrin.database.orm.sql.schema.columns import AutoPKColumn, FKColumn
+from pyrin.database.orm.sql.schema.columns import AutoPKColumn, FKColumn, StringColumn
 
 
 class CityBaseEntity(CoreEntity):
@@ -27,5 +26,5 @@ class CityEntity(CityBaseEntity):
 
     _extend_existing = True
 
-    name = CoreColumn(name='name', type_=Unicode(200))
-    province_id = FKColumn(fk='province.id', name='province_id', type_=BigInteger)
+    name = StringColumn(name='name', max_length=50, validated=True)
+    province_id = FKColumn(fk='province.id', name='province_id', type_=BigInteger, validated=True)

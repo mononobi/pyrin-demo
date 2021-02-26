@@ -6,8 +6,7 @@ permission models module.
 from sqlalchemy import Unicode, SmallInteger
 
 from pyrin.database.model.base import CoreEntity
-from pyrin.database.orm.sql.schema.base import CoreColumn
-from pyrin.database.orm.sql.schema.columns import AutoPKColumn
+from pyrin.database.orm.sql.schema.columns import AutoPKColumn, StringColumn
 
 
 class PermissionBaseEntity(CoreEntity):
@@ -27,4 +26,4 @@ class PermissionEntity(PermissionBaseEntity):
 
     _extend_existing = True
 
-    description = CoreColumn(name='description', type_=Unicode(100), nullable=False)
+    description = StringColumn(name='description', max_length=100, nullable=False, validated=True)
