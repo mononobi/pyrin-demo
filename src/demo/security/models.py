@@ -3,7 +3,7 @@
 security models module.
 """
 
-from sqlalchemy import Unicode, DateTime, Boolean
+from sqlalchemy import Unicode, Boolean, TIMESTAMP
 
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.base import CoreColumn
@@ -31,7 +31,7 @@ class UserEntity(UserBaseEntity):
                             nullable=False, unique=True, validated=True)
     password_hash = HiddenColumn(name='password_hash', type_=Unicode(250), nullable=False)
     last_login_date = CoreColumn(name='last_login_date',
-                                 type_=DateTime(timezone=True), validated=True)
+                                 type_=TIMESTAMP(timezone=True), validated=True)
     first_name = StringColumn(name='first_name', max_length=50, nullable=False, validated=True)
     last_name = StringColumn(name='last_name', max_length=50, nullable=False, validated=True)
     is_active = CoreColumn(name='is_active', type_=Boolean, nullable=False,
