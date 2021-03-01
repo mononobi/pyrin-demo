@@ -3,7 +3,7 @@
 permission models module.
 """
 
-from sqlalchemy import Unicode, SmallInteger
+from sqlalchemy import SmallInteger
 
 from pyrin.database.model.base import CoreEntity
 from pyrin.database.orm.sql.schema.columns import AutoPKColumn, StringColumn
