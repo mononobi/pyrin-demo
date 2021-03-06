@@ -6,7 +6,7 @@ permission models module.
 from sqlalchemy import SmallInteger
 
 from pyrin.database.model.base import CoreEntity
-from pyrin.database.orm.sql.schema.columns import AutoPKColumn, StringColumn
+from pyrin.database.orm.sql.schema.columns import StringColumn, PKColumn
 
 
 class PermissionBaseEntity(CoreEntity):
@@ -16,7 +16,7 @@ class PermissionBaseEntity(CoreEntity):
 
     _table = 'permission'
 
-    id = AutoPKColumn(type_=SmallInteger, name='id')
+    id = PKColumn(name='id', type_=SmallInteger, autoincrement=False)
 
 
 class PermissionEntity(PermissionBaseEntity):
