@@ -5,7 +5,7 @@ permission models module.
 
 from sqlalchemy import SmallInteger
 
-from pyrin.database.model.base import CoreEntity
+from pyrin.database.model.declarative import CoreEntity
 from pyrin.database.orm.sql.schema.columns import StringColumn, PKColumn
 
 

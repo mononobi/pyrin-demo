@@ -5,7 +5,7 @@ security models module.
 
 from sqlalchemy import Unicode
 
-from pyrin.database.model.base import CoreEntity
+from pyrin.database.model.declarative import CoreEntity
 from pyrin.database.orm.sql.schema.columns import AutoPKColumn, HiddenColumn, \
     StringColumn, TimeStampColumn, BooleanColumn
 
