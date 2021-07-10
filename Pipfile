@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pyrin = "==0.5.3"
+pyrin = "==0.5.5"
 
 [requires]
 python_version = "3.8"
