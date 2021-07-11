@@ -3,59 +3,109 @@
 users api module.
 """
 
-from pyrin.api.router.decorators import api
-from pyrin.core.enumerations import HTTPMethodEnum
+from pyrin.api.router.decorators import post, get
 
 import demo.security.users.services as user_services
 
 from demo.security.users.permissions import VIEW_USERS_LIST_PERMISSION
 
 
-@api('/users', methods=HTTPMethodEnum.POST, authenticated=False)
+@post('/users', authenticated=False)
 def create(username, password, first_name, last_name, **options):
     """
     creates a new user based on given inputs.
-
-    :param str username: username.
-    :param str password: password.
-    :param str first_name: first name.
-    :param str last_name: last name.
+    ---
+    parameters:
+      - name: username
+        type: string
+        description: username
+      - name: password
+        type: string
+        format: password
+        description: password
+      - name: first_name
+        type: string
+        description: first name
+      - name: last_name
+        type: string
+        description: last name
     """
 
     user_services.create(username, password, first_name, last_name, **options)
 
 
-@api('/users/info', methods=HTTPMethodEnum.GET, permissions=VIEW_USERS_LIST_PERMISSION)
+@get('/users/info', permissions=VIEW_USERS_LIST_PERMISSION)
 def get_info(**options):
     """
     gets the current user info.
-
-    :raises UserNotFoundError: user not found error.
-
-    :returns: dict(int id,
-                   str username,
-                   datetime last_login_date,
-                   str first_name,
-                   str last_name,
-                   bool is_active)
-    :rtype: dict
+    ---
+    responses:
+      200:
+        description: current user info
+        schema:
+          properties:
+            id:
+              type: integer
+              description: user id
+            username:
+              type: string
+              description: username
+            last_login_date:
+              type: string
+              format: date-time
+              description: last login date
+            first_name:
+              type: string
+              description: first name
+            last_name:
+              type: string
+              description: last name
+            is_active:
+              type: boolean
+              description: user is active
     """
 
-    return user_services.get(**options)
+    return user_services.get_info(**options)
 
 
-@api('/users', methods=HTTPMethodEnum.GET, authenticated=False)
+@get('/users', authenticated=False)
 def get_all(**options):
     """
     gets a list of all users.
-
-    :returns: list[dict(int id,
-                        str username,
-                        datetime last_login_date,
-                        str first_name,
-                        str last_name,
-                        bool is_active)]
-    :rtype: list
+    ---
+    responses:
+      200:
+        description: list of all users
+        schema:
+          properties:
+            count:
+              type: integer
+              description: count of users
+            results:
+             type: array
+             description: list of users
+             items:
+               type: object
+               properties:
+                 id:
+                   type: integer
+                   description: user id
+                 username:
+                   type: string
+                   description: username
+                 last_login_date:
+                   type: string
+                   format: date-time
+                   description: last login date
+                 first_name:
+                   type: string
+                   description: first name
+                 last_name:
+                   type: string
+                   description: last name
+                 is_active:
+                   type: boolean
+                   description: user is active
     """
 
     return user_services.get_all(**options)

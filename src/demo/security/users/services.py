@@ -22,16 +22,14 @@ def create(username, password, first_name, last_name, **options):
                                                       last_name, **options)
 
 
-def get(**options):
+def get_info(**options):
     """
     gets the current user info.
-
-    :raises UserNotFoundError: user not found error.
 
     :rtype: UserEntity
     """
 
-    return get_component(UsersPackage.COMPONENT_NAME).get(**options)
+    return get_component(UsersPackage.COMPONENT_NAME).get_info(**options)
 
 
 def get_all(**options):

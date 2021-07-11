@@ -39,11 +39,9 @@ class UsersManager(BaseUsersManager):
 
         return user
 
-    def get(self, **options):
+    def get_info(self, **options):
         """
         gets the current user info.
-
-        :raises UserNotFoundError: user not found error.
 
         :rtype: UserEntity
         """
