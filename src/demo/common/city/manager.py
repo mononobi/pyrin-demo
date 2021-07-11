@@ -3,9 +3,9 @@
 city manager module.
 """
 
+from pyrin.core.globals import _
 from pyrin.core.structs import Manager
 from pyrin.database.services import get_current_store
-from pyrin.core.globals import _
 
 from demo.common.city.exceptions import CityNotFoundError
 from demo.common.city.models import CityEntity
@@ -16,27 +16,27 @@ class CityManager(Manager):
     city manager class.
     """
 
-    def get(self, city_id, **options):
+    def get(self, id, **options):
         """
         gets the specified city.
 
-        :param int city_id: city id to get its info.
+        :param int id: city id to get its info.
 
         :raises CityNotFoundError: city not found error.
 
         :returns: dict(int id,
                        str name,
-                       int province_id: province id)
+                       int province_id)
 
         :rtype: dict
         """
 
         store = get_current_store()
-        city = store.query(CityEntity).get(city_id)
+        city = store.query(CityEntity).get(id)
 
         if city is None:
             raise CityNotFoundError(_('City [{city_id}] not found.'
-                                      .format(city_id=city_id)))
+                                      .format(city_id=id)))
 
         return city.to_dict()
 
@@ -49,7 +49,7 @@ class CityManager(Manager):
 
         :returns: list[dict(int id,
                             str name,
-                            int province_id: province id)]
+                            int province_id)]
 
         :rtype: list
         """

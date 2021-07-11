@@ -3,56 +3,93 @@
 city api module.
 """
 
-from pyrin.api.router.decorators import api
-from pyrin.core.enumerations import HTTPMethodEnum
+from pyrin.api.router.decorators import api, get, post
 
 import demo.common.city.services as city_services
 
 
-@api('/cities/<int:city_id>', methods=HTTPMethodEnum.GET, authenticated=False)
-def get(city_id, **options):
+@get('/cities/<int:id>', authenticated=False)
+def get(id, **options):
     """
     gets the specified city.
-
-    :param int city_id: city id to get its info.
-
-    :raises CityNotFoundError: city not found error.
-
-    :returns: dict(int id,
-                   str name,
-                   int province_id: province id)
-
-    :rtype: dict
+    ---
+    parameters:
+      - name: id
+        type: integer
+        description: city id to get its info
+    responses:
+      200:
+        description: city info
+        schema:
+          properties:
+            id:
+              type: integer
+              description: city id
+            name:
+              type: string
+              description: city name
+            province_id:
+              type: integer
+              description: province id
+      422:
+        description: city not found
     """
 
-    return city_services.get(city_id, **options)
+    return city_services.get(id, **options)
 
 
-@api('/cities', methods=HTTPMethodEnum.GET, authenticated=False)
+@api('/cities', authenticated=False)
 def find(**filters):
     """
     finds cities with given filters.
-
-    :keyword str name: city name.
-    :keyword int province_id: province id.
-
-    :returns: list[dict(int id,
-                        str name,
-                        int province_id: province id)]
-
-    :rtype: list
+    ---
+    parameters:
+      - name: name
+        type: string
+        description: city name
+      - name: province_id
+        type: integer
+        description: province id
+    responses:
+      200:
+        description: list of found cities
+        schema:
+          properties:
+            count:
+              type: integer
+              description: count of found cities
+            results:
+             type: array
+             description: list of found cities
+             items:
+               type: object
+               properties:
+                 id:
+                   type: integer
+                   description: city id
+                 name:
+                   type: string
+                   description: city name
+                 province_id:
+                   type: integer
+                   description: province id
     """
 
     return city_services.find(**filters)
 
 
-@api('/cities', methods=HTTPMethodEnum.POST, authenticated=False)
+@post('/cities', authenticated=False)
 def create(name, province_id, **options):
     """
     creates a city.
-
-    :param str name: city name.
-    :param int province_id: province id.
+    ---
+    parameters:
+      - name: name
+        type: string
+        description: city name
+      - name: province_id
+        type: integer
+        description: province id
     """
 
     return city_services.create(name, province_id, **options)
