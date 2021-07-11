@@ -3,66 +3,81 @@
 province api module.
 """
 
-from pyrin.api.router.decorators import api
-from pyrin.core.enumerations import HTTPMethodEnum
+from pyrin.api.router.decorators import api, get, post
 
 import demo.common.province.services as province_services
 
 
-@api('/provinces/<int:province_id>', methods=HTTPMethodEnum.GET, authenticated=False)
-def get(province_id, **options):
+@get('/provinces/<int:id>', authenticated=False)
+def get(id, **options):
     """
     gets the specified province.
-
-    :param int province_id: province id to get its info.
-
-    :raises ProvinceNotFoundError: province not found error.
-
-    :returns: dict(int id,
-                   str name)
-
-    :rtype: dict
+    ---
+    parameters:
+      - name: id
+        type: integer
+        description: province id to get its info
+    responses:
+      200:
+        description: province info
+        schema:
+           properties:
+             id:
+               type: integer
+               description: province id
+             name:
+               type: string
+               description: province name
+      422:
+        description: province not found
     """
 
-    return province_services.get(province_id, **options)
+    return province_services.get(id, **options)
 
 
-@api('/provinces', methods=HTTPMethodEnum.GET, authenticated=False)
+@api('/provinces', authenticated=False)
 def find(**filters):
     """
     finds provinces with given filters.
-
-    :keyword str name: province name.
-
-    :returns: list[dict(int id,
-                        str name)]
-
-    :rtype: list
+    ---
+    parameters:
+      - name: name
+        type: string
+        description: province name
+    responses:
+      200:
+        description: list of found provinces
+        schema:
+          properties:
+            count:
+              type: integer
+              description: count of found provinces
+            results:
+             type: array
+             description: list of found provinces
+             items:
+               type: object
+               properties:
+                 id:
+                   type: integer
+                   description: province id
+                 name:
+                   type: string
+                   description: province name
     """
 
     return province_services.find(**filters)
 
 
-@api('/provinces/all', methods=HTTPMethodEnum.GET, authenticated=False)
-def get_all(**options):
-    """
-    gets all provinces.
-
-    :returns: list[dict(int id,
-                        str name)]
-
-    :rtype: list
-    """
-
-    return province_services.get_all(**options)
-
-
-@api('/provinces', methods=HTTPMethodEnum.POST, authenticated=False)
+@post('/provinces', authenticated=False)
 def create(name, **options):
     """
     creates a province.
-
-    :param str name: province name.
+    ---
+    parameters:
+      - name: name
+        type: string
+        description: province name
     """
 
     return province_services.create(name, **options)

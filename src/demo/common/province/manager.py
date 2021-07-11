@@ -16,11 +16,11 @@ class ProvinceManager(Manager):
     province manager class.
     """
 
-    def get(self, province_id, **options):
+    def get(self, id, **options):
         """
         gets the specified province.
 
-        :param int province_id: province id to get its info.
+        :param int id: province id to get its info.
 
         :raises ProvinceNotFoundError: province not found error.
 
@@ -31,11 +31,11 @@ class ProvinceManager(Manager):
         """
 
         store = get_current_store()
-        province = store.query(ProvinceEntity).get(province_id)
+        province = store.query(ProvinceEntity).get(id)
 
         if province is None:
             raise ProvinceNotFoundError(_('Province [{province_id}] not found.'
-                                          .format(province_id=province_id)))
+                                          .format(province_id=id)))
 
         return province.to_dict()
 
@@ -57,18 +57,6 @@ class ProvinceManager(Manager):
         entities = store.query(ProvinceEntity).filter(*clauses).all()
 
         return entities
-
-    def get_all(self, **options):
-        """
-        gets all provinces.
-
-        :returns: list[dict(int id,
-                            str name)]
-
-        :rtype: list
-        """
-
-        return self.find()
 
     def _make_find_clause(self, **filters):
         """
