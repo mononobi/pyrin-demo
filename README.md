@@ -18,21 +18,4 @@ database. If you want to change any configuration, you could change it inside
 
 # Exposed Services
 
-Demo application will expose these services:
-
-- Public
-
-    - `('/auth/login/', methods=HTTPMethodEnum.POST, authenticated=False)`
-    - `('/users/', methods=HTTPMethodEnum.POST, authenticated=False)`
-    - `('/users/', methods=HTTPMethodEnum.GET, authenticated=False)`
-    - `('/cities/<int:city_id>/', methods=HTTPMethodEnum.GET, authenticated=False)`
-    - `('/cities/', methods=HTTPMethodEnum.POST, authenticated=False)`
-    - `('/cities/', methods=HTTPMethodEnum.GET, authenticated=False)`
-    - `('/provinces/<int:province_id>/', methods=HTTPMethodEnum.GET, authenticated=False)`
-    - `('/provinces/', methods=HTTPMethodEnum.GET, authenticated=False)`
-    - `('/provinces/', methods=HTTPMethodEnum.POST, authenticated=False)`
-    - `('/provinces/all/', methods=HTTPMethodEnum.GET, authenticated=False)`
-
-- Protected (Requires Login and Authorization Header with Access Token)
-
-    - `('/users/info/', methods=HTTPMethodEnum.GET, permissions=VIEW_USERS_LIST_PERMISSION)`
+You can head over to **`127.0.0.1:5000/swagger`** to test the demo services with Swagger UI.
