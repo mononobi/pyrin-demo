@@ -3,12 +3,12 @@
 city api module.
 """
 
-from pyrin.api.router.decorators import api, get, post
+from pyrin.api.router.decorators import api, post
 
 import demo.common.city.services as city_services
 
 
-@get('/cities/<int:id>', authenticated=False)
+@api('/cities/<int:id>', authenticated=False)
 def get(id, **options):
     """
     gets the specified city.

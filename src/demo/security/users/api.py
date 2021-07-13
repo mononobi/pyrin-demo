@@ -3,7 +3,7 @@
 users api module.
 """
 
-from pyrin.api.router.decorators import post, get
+from pyrin.api.router.decorators import post, api
 
 import demo.security.users.services as user_services
 
@@ -34,7 +34,7 @@ def create(username, password, first_name, last_name, **options):
     user_services.create(username, password, first_name, last_name, **options)
 
 
-@get('/users/info', permissions=VIEW_USERS_LIST_PERMISSION)
+@api('/users/info', permissions=VIEW_USERS_LIST_PERMISSION)
 def get_info(**options):
     """
     gets the current user info.
@@ -68,7 +68,7 @@ def get_info(**options):
     return user_services.get_info(**options)
 
 
-@get('/users', authenticated=False)
+@api('/users', authenticated=False)
 def get_all(**options):
     """
     gets a list of all users.

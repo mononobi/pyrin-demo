@@ -3,12 +3,12 @@
 province api module.
 """
 
-from pyrin.api.router.decorators import api, get, post
+from pyrin.api.router.decorators import api, post
 
 import demo.common.province.services as province_services
 
 
-@get('/provinces/<int:id>', authenticated=False)
+@api('/provinces/<int:id>', authenticated=False)
 def get(id, **options):
     """
     gets the specified province.
