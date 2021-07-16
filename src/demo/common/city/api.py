@@ -54,25 +54,19 @@ def find(**filters):
       200:
         description: list of found cities
         schema:
-          properties:
-            count:
-              type: integer
-              description: count of found cities
-            results:
-             type: array
-             description: list of found cities
-             items:
-               type: object
-               properties:
-                 id:
-                   type: integer
-                   description: city id
-                 name:
-                   type: string
-                   description: city name
-                 province_id:
-                   type: integer
-                   description: province id
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: city id
+              name:
+                type: string
+                description: city name
+              province_id:
+                type: integer
+                description: province id
     """
 
     return city_services.find(**filters)

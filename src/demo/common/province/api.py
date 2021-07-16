@@ -48,22 +48,16 @@ def find(**filters):
       200:
         description: list of found provinces
         schema:
-          properties:
-            count:
-              type: integer
-              description: count of found provinces
-            results:
-             type: array
-             description: list of found provinces
-             items:
-               type: object
-               properties:
-                 id:
-                   type: integer
-                   description: province id
-                 name:
-                   type: string
-                   description: province name
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: province id
+              name:
+                type: string
+                description: province name
     """
 
     return province_services.find(**filters)

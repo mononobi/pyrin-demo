@@ -77,35 +77,29 @@ def get_all(**options):
       200:
         description: list of all users
         schema:
-          properties:
-            count:
-              type: integer
-              description: count of users
-            results:
-             type: array
-             description: list of users
-             items:
-               type: object
-               properties:
-                 id:
-                   type: integer
-                   description: user id
-                 username:
-                   type: string
-                   description: username
-                 last_login_date:
-                   type: string
-                   format: date-time
-                   description: last login date
-                 first_name:
-                   type: string
-                   description: first name
-                 last_name:
-                   type: string
-                   description: last name
-                 is_active:
-                   type: boolean
-                   description: user is active
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: user id
+              username:
+                type: string
+                description: username
+              last_login_date:
+                type: string
+                format: date-time
+                description: last login date
+              first_name:
+                type: string
+                description: first name
+              last_name:
+                type: string
+                description: last name
+              is_active:
+                type: boolean
+                description: user is active
     """
 
     return user_services.get_all(**options)
