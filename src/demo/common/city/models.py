@@ -26,5 +26,5 @@ class CityEntity(CityBaseEntity):
 
     _extend_existing = True
 
-    name = StringColumn(name='name', max_length=50, validated=True)
-    province_id = FKColumn(fk='province.id', name='province_id', type_=BigInteger, validated=True)
+    name = StringColumn(name='name', max_length=50)
+    province_id = FKColumn(fk='province.id', name='province_id', type_=BigInteger)

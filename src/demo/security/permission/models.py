@@ -26,4 +26,4 @@ class PermissionEntity(PermissionBaseEntity):
 
     _extend_existing = True
 
-    description = StringColumn(name='description', max_length=100, nullable=False, validated=True)
+    description = StringColumn(name='description', max_length=100, nullable=False)

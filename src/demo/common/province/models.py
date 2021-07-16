@@ -24,4 +24,4 @@ class ProvinceEntity(ProvinceBaseEntity):
 
     _extend_existing = True
 
-    name = StringColumn(name='name', max_length=200, unique=True, validated=True)
+    name = StringColumn(name='name', max_length=200, unique=True)
