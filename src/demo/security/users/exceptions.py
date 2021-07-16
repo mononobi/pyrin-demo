@@ -19,10 +19,3 @@ class UsersManagerBusinessException(CoreBusinessException,
     users manager business exception.
     """
     pass
-
-
-class InvalidUserIDError(UsersManagerBusinessException):
-    """
-    invalid user id error.
-    """
-    pass

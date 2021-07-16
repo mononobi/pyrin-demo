@@ -22,14 +22,6 @@ class SecurityManagerBusinessException(CoreBusinessException,
     pass
 
 
-class InvalidUsernameOrPasswordError(AuthenticationFailedError,
-                                     SecurityManagerBusinessException):
-    """
-    invalid username or password error.
-    """
-    pass
-
-
 class UserNotFoundError(AuthenticationFailedError,
                         SecurityManagerBusinessException):
     """

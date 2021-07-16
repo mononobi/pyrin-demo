@@ -19,7 +19,7 @@ def get(id, **options):
     :returns: dict(int id,
                    str name)
 
-    :rtype: dict
+    :rtype: ProvinceEntity
     """
 
     return get_component(ProvincePackage.COMPONENT_NAME).get(id, **options)
@@ -29,6 +29,7 @@ def find(**filters):
     """
     finds provinces with given filters.
 
+    :keyword int id: province id.
     :keyword str name: province name.
 
     :returns: list[dict(int id,

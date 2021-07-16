@@ -3,9 +3,12 @@
 province manager module.
 """
 
+import pyrin.validator.services as validator_services
+import pyrin.filtering.services as filtering_services
+
+from pyrin.core.globals import _
 from pyrin.core.structs import Manager
 from pyrin.database.services import get_current_store
-from pyrin.core.globals import _
 
 from demo.common.province.exceptions import ProvinceNotFoundError
 from demo.common.province.models import ProvinceEntity
@@ -27,22 +30,24 @@ class ProvinceManager(Manager):
         :returns: dict(int id,
                        str name)
 
-        :rtype: dict
+        :rtype: ProvinceEntity
         """
 
+        data = validator_services.validate(ProvinceEntity, id=id)
         store = get_current_store()
-        province = store.query(ProvinceEntity).get(id)
+        province = store.query(ProvinceEntity).get(data.id)
 
         if province is None:
             raise ProvinceNotFoundError(_('Province [{province_id}] not found.'
-                                          .format(province_id=id)))
+                                          .format(province_id=data.id)))
 
-        return province.to_dict()
+        return province
 
     def find(self, **filters):
         """
         finds provinces with given filters.
 
+        :keyword int id: province id.
         :keyword str name: province name.
 
         :returns: list[dict(int id,
@@ -51,31 +56,11 @@ class ProvinceManager(Manager):
         :rtype: list
         """
 
-        clauses = self._make_find_clause(**filters)
-
+        validator_services.validate_for_find(ProvinceEntity, filters)
+        clauses = filtering_services.filter(ProvinceEntity, filters)
         store = get_current_store()
         entities = store.query(ProvinceEntity).filter(*clauses).all()
-
         return entities
-
-    def _make_find_clause(self, **filters):
-        """
-        makes the required find clauses based on given
-        filters and returns the clauses list.
-
-        :keyword str name: province name.
-
-        :rtype: list
-        """
-
-        clauses = []
-
-        name = filters.get('name', None)
-
-        if name is not None:
-            clauses.append(ProvinceEntity.name.icontains(name))
-
-        return clauses
 
     def create(self, name, **options):
         """
@@ -84,6 +69,7 @@ class ProvinceManager(Manager):
         :param str name: province name.
         """
 
+        name = validator_services.validate_field(ProvinceEntity, ProvinceEntity.name, name)
         province = ProvinceEntity(name=name)
         store = get_current_store()
         store.add(province)

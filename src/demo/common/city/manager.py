@@ -3,6 +3,9 @@
 city manager module.
 """
 
+import pyrin.validator.services as validator_services
+import pyrin.filtering.services as filtering_services
+
 from pyrin.core.globals import _
 from pyrin.core.structs import Manager
 from pyrin.database.services import get_current_store
@@ -28,22 +31,24 @@ class CityManager(Manager):
                        str name,
                        int province_id)
 
-        :rtype: dict
+        :rtype: CityEntity
         """
 
+        data = validator_services.validate(CityEntity, id=id)
         store = get_current_store()
-        city = store.query(CityEntity).get(id)
+        city = store.query(CityEntity).get(data.id)
 
         if city is None:
             raise CityNotFoundError(_('City [{city_id}] not found.'
-                                      .format(city_id=id)))
+                                      .format(city_id=data.id)))
 
-        return city.to_dict()
+        return city
 
     def find(self, **filters):
         """
         finds cities with given filters.
 
+        :keyword int id: city id.
         :keyword str name: city name.
         :keyword int province_id: province id.
 
@@ -54,36 +59,11 @@ class CityManager(Manager):
         :rtype: list
         """
 
-        clauses = self._make_find_clause(**filters)
-
+        validator_services.validate_for_find(CityEntity, filters)
+        clauses = filtering_services.filter(CityEntity, filters)
         store = get_current_store()
         entities = store.query(CityEntity).filter(*clauses).all()
-
         return entities
-
-    def _make_find_clause(self, **filters):
-        """
-        makes the required find clauses based on
-        given filters and returns the clauses list.
-
-        :keyword str name: city name.
-        :keyword int province_id: province id.
-
-        :rtype: list
-        """
-
-        clauses = []
-
-        name = filters.get('name', None)
-        province_id = filters.get('province_id', None)
-
-        if name is not None:
-            clauses.append(CityEntity.name.icontains(name))
-
-        if province_id is not None:
-            clauses.append(CityEntity.province_id == province_id)
-
-        return clauses
 
     def create(self, name, province_id, **options):
         """
@@ -93,6 +73,8 @@ class CityManager(Manager):
         :param int province_id: province id.
         """
 
-        city = CityEntity(name=name, province_id=province_id)
+        data = dict(name=name, province_id=province_id)
+        validator_services.validate_dict(CityEntity, data)
+        city = CityEntity(**data)
         store = get_current_store()
         store.add(city)

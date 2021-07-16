@@ -68,7 +68,7 @@ def get_info(**options):
     return user_services.get_info(**options)
 
 
-@api('/users', authenticated=False)
+@api('/users', authenticated=False, paged=True)
 def get_all(**options):
     """
     gets a list of all users.

@@ -31,8 +31,6 @@ def get(id, **options):
             province_id:
               type: integer
               description: province id
-      422:
-        description: city not found
     """
 
     return city_services.get(id, **options)
@@ -44,6 +42,9 @@ def find(**filters):
     finds cities with given filters.
     ---
     parameters:
+      - name: id
+        type: integer
+        description: city id
       - name: name
         type: string
         description: city name

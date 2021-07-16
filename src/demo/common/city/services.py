@@ -20,7 +20,7 @@ def get(id, **options):
                    str name,
                    int province_id)
 
-    :rtype: dict
+    :rtype: CityEntity
     """
 
     return get_component(CityPackage.COMPONENT_NAME).get(id, **options)
@@ -30,6 +30,7 @@ def find(**filters):
     """
     finds cities with given filters.
 
+    :keyword int id: city id.
     :keyword str name: city name.
     :keyword int province_id: province id.
 

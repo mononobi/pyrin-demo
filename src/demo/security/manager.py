@@ -6,6 +6,7 @@ security manager module.
 import pyrin.security.hashing.services as hashing_services
 import pyrin.security.token.services as toke_services
 import pyrin.globalization.datetime.services as datetime_services
+import pyrin.validator.services as validator_services
 
 from pyrin.core.globals import _
 from pyrin.core.structs import DTO
@@ -13,13 +14,14 @@ from pyrin.database.services import get_current_store
 from pyrin.security.authorization.exceptions import UserIsNotActiveError
 from pyrin.security.manager import SecurityManager as BaseSecurityManager
 
-from demo.security.exceptions import UserNotFoundError, InvalidUsernameOrPasswordError
+from demo.security.exceptions import UserNotFoundError
 from demo.security.models import UserEntity
 
 
 class SecurityManager(BaseSecurityManager):
     """
     security manager class.
+
     this class is intended to provide some services needed in pyrin application.
     the top level application must extend this class considering business requirements.
     """
@@ -51,18 +53,16 @@ class SecurityManager(BaseSecurityManager):
         :rtype: str
         """
 
-        if username is None or password is None:
-            raise InvalidUsernameOrPasswordError(_('Username or password is invalid.'))
-
+        data = validator_services.validate(UserEntity, username=username, password=password)
         store = get_current_store()
-        user = store.query(UserEntity).filter(UserEntity.username == username).one_or_none()
+        user = store.query(UserEntity).filter(UserEntity.username == data.username).one_or_none()
 
         fail_message = _('User not found, make sure that '
                          'username and password are correct.')
         if user is None:
             raise UserNotFoundError(fail_message)
 
-        if hashing_services.is_match(password, user.password_hash) is not True:
+        if hashing_services.is_match(data.password, user.password_hash) is not True:
             raise UserNotFoundError(fail_message)
 
         if user.is_active is False:

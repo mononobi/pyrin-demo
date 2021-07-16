@@ -4,15 +4,16 @@ users manager module.
 """
 
 import pyrin.security.services as security_services
+import pyrin.validator.services as validator_services
 
+from pyrin.core.globals import _, SECURE_TRUE
+from pyrin.core.structs import DTO
 from pyrin.database.services import get_current_store
 from pyrin.security.session.services import get_current_user
-from pyrin.core.globals import _
 from pyrin.security.users.manager import UsersManager as BaseUsersManager
 
 from demo.security.exceptions import UserNotFoundError
 from demo.security.models import UserEntity
-from demo.security.users.exceptions import InvalidUserIDError
 
 
 class UsersManager(BaseUsersManager):
@@ -20,22 +21,23 @@ class UsersManager(BaseUsersManager):
     users manager class.
     """
 
-    def _get(self, user_id, **options):
+    def _get(self, id, **options):
         """
         gets the specified user.
 
-        :param int user_id: user id to get its info.
+        :param int id: user id to get its info.
 
         :raises UserNotFoundError: user not found error.
 
         :rtype: UserEntity
         """
 
+        data = validator_services.validate(UserEntity, id=id)
         store = get_current_store()
-        user = store.query(UserEntity).get(user_id)
+        user = store.query(UserEntity).get(data.id)
 
         if user is None:
-            raise UserNotFoundError(_('User [{user_id}] not found.'.format(user_id=user_id)))
+            raise UserNotFoundError(_('User [{user_id}] not found.'.format(user_id=data.id)))
 
         return user
 
@@ -49,24 +51,18 @@ class UsersManager(BaseUsersManager):
         user_id = get_current_user()
         return self._get(user_id, **options)
 
-    def _exists(self, user_id):
+    def _exists(self, id):
         """
         gets a value indicating that given user existed.
 
-        :param int user_id: user id to check for existence.
-
-        :raises InvalidUserError: invalid user error.
+        :param int id: user id to check for existence.
 
         :rtype: bool
         """
 
-        if user_id is None:
-            raise InvalidUserIDError(_('Input user id could not be None.'))
-
+        data = validator_services.validate(UserEntity, id=id)
         store = get_current_store()
-        count = store.query(UserEntity.id).filter(UserEntity.id == user_id).count()
-
-        return count > 0
+        return store.query(UserEntity.id).filter(UserEntity.id == data.id).existed()
 
     def is_active(self, user, **options):
         """
@@ -74,7 +70,6 @@ class UsersManager(BaseUsersManager):
 
         :param int user: user to check its active status.
 
-        :raises InvalidUserError: invalid user error.
         :raises UserNotFoundError: user not found error.
 
         :rtype: bool
@@ -96,11 +91,11 @@ class UsersManager(BaseUsersManager):
         :param str last_name: last name.
         """
 
-        entity = UserEntity()
-        entity.username = username
-        entity.password_hash = security_services.get_password_hash(password)
-        entity.first_name = first_name
-        entity.last_name = last_name
+        data = DTO(username=username, password=password,
+                   first_name=first_name, last_name=last_name)
+        validator_services.validate_dict(UserEntity, data)
+        entity = UserEntity(**data)
+        entity.password_hash = security_services.get_password_hash(data.password)
         entity.is_active = True
 
         store = get_current_store()
@@ -115,4 +110,4 @@ class UsersManager(BaseUsersManager):
         """
 
         store = get_current_store()
-        return store.query(UserEntity).all()
+        return store.query(UserEntity).paginate(inject_total=SECURE_TRUE, **options).all()
