@@ -36,11 +36,11 @@ class CityManager(Manager):
 
         data = validator_services.validate(CityEntity, id=id)
         store = get_current_store()
-        city = store.query(CityEntity).get(data.id)
+        city = store.query(CityEntity).get(data.get(id))
 
         if city is None:
             raise CityNotFoundError(_('City [{city_id}] not found.'
-                                      .format(city_id=data.id)))
+                                      .format(city_id=data.get(id))))
 
         return city
 

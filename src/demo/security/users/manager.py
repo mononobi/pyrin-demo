@@ -34,10 +34,10 @@ class UsersManager(BaseUsersManager):
 
         data = validator_services.validate(UserEntity, id=id)
         store = get_current_store()
-        user = store.query(UserEntity).get(data.id)
+        user = store.query(UserEntity).get(data.get(id))
 
         if user is None:
-            raise UserNotFoundError(_('User [{user_id}] not found.'.format(user_id=data.id)))
+            raise UserNotFoundError(_('User [{user_id}] not found.'.format(user_id=data.get(id))))
 
         return user
 
@@ -62,7 +62,7 @@ class UsersManager(BaseUsersManager):
 
         data = validator_services.validate(UserEntity, id=id)
         store = get_current_store()
-        return store.query(UserEntity.id).filter(UserEntity.id == data.id).existed()
+        return store.query(UserEntity.id).filter(UserEntity.id == data.get(id)).existed()
 
     def is_active(self, user, **options):
         """
