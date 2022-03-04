@@ -35,11 +35,11 @@ class ProvinceManager(Manager):
 
         data = validator_services.validate(ProvinceEntity, id=id)
         store = get_current_store()
-        province = store.query(ProvinceEntity).get(data.get(id))
+        province = store.query(ProvinceEntity).get(data.get('id'))
 
         if province is None:
             raise ProvinceNotFoundError(_('Province [{province_id}] not found.'
-                                          .format(province_id=data.get(id))))
+                                          .format(province_id=data.get('id'))))
 
         return province
 

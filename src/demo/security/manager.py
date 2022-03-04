@@ -56,14 +56,14 @@ class SecurityManager(BaseSecurityManager):
         data = validator_services.validate(UserEntity, username=username, password=password)
         store = get_current_store()
         user = store.query(UserEntity).filter(
-            UserEntity.username == data.get(username)).one_or_none()
+            UserEntity.username == data.get('username')).one_or_none()
 
         fail_message = _('User not found, make sure that '
                          'username and password are correct.')
         if user is None:
             raise UserNotFoundError(fail_message)
 
-        if hashing_services.is_match(data.get(password), user.password_hash) is not True:
+        if hashing_services.is_match(data.get('password'), user.password_hash) is not True:
             raise UserNotFoundError(fail_message)
 
         if user.is_active is False:
